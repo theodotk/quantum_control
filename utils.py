@@ -1,6 +1,7 @@
 import numpy as np
 
 import gym
+from gym import spaces
 from stable_baselines3 import SAC
 
 import matplotlib.pyplot as plt
@@ -232,7 +233,10 @@ def plots(points, acs, r, simple = False, n_steps = 1000, dt = 0.1):
     
     b.add_points([x, y, z])
     b.render()
-    ax2.set_box_aspect([1, 1, 1]) # required for mpl > 3.1
+    try:
+        ax2.set_box_aspect([1, 1, 1]) # required for mpl > 3.1
+    except AttributeError:
+        pass
     
     ax3 = fig.add_subplot(2, 2, 3)
     ax3.bar(time, np.array(acs)[:,0], width = time[0], label = r'Pulse power $\Omega$', alpha = 0.6)
@@ -590,8 +594,10 @@ def plots(points, acs, r, simple = False, n_steps = 1000, dt = 0.1):
     
     b.add_points([x, y, z])
     b.render()
-    ax2.set_box_aspect([1, 1, 1]) # required for mpl > 3.1
-    
+    try:
+        ax2.set_box_aspect([1, 1, 1]) # required for mpl > 3.1
+    except AttributeError:
+        pass
     ax3 = fig.add_subplot(2, 2, 3)
     ax3.bar(time, np.array(acs)[:,0], width = time[0], label = r'Pulse power $\Omega$', alpha = 0.6)
     if len(acs[0])>1:
@@ -712,10 +718,20 @@ class DetModel:
     '''
     A very lazy deterministic model for a benchmark
     '''
-    def __init__(self, p = 1):
-        self.p_max = p
+    def __init__(self, p_max = 1):
+        self.p_max = p_max
+        self.p_max_orig = p_max
+        
         self.turn = False
+        self.action_space = spaces.Box(
+            low=np.array([-self.p_max, -1]), high=np.array([self.p_max,1]), shape=(2,), dtype=np.float32
+        )
+        
+        self.observation_space = spaces.Box(low=-1.0, high=1.0, shape=(5,), dtype=np.float32)
     def predict(self, obs, deterministic=True):
+        if deterministic: # resetting the model in the beginning of an evaluation
+            self.p_max = self.p_max_orig
+            deterministic=False
         if obs[2] <= 0 and obs[0] < 0:
             if not self.turn:
                 self.turn = True
