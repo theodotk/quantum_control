@@ -1,9 +1,9 @@
 # Two-level system excitation
 
 This project is an easy example of quantum control with reinforcement learning. It contains:
-+ the visualisation of the result is in [demo_control.ipynb](https://colab.research.google.com/drive/1PEYf3yy9L-YBHH-lfhnlfr82caW4kRYZ),
++ the visualisation of the result is in demo_control.ipynb, you can try it on [Google Colab](https://colab.research.google.com/drive/1PEYf3yy9L-YBHH-lfhnlfr82caW4kRYZ),
 + a trained model,
-+ the code for training is in [training.py](??) and can be launched as `python3 training.py --n-trials NUM_OF_OPTIMIZATION_TRIALS --name NAME_OF_THE_SAVED_MODEL`
++ the code for training is in [training.py](https://github.com/theodotk/quantum_control/blob/main/training.py) and can be launched as `python3 training.py --n-trials NUM_OF_OPTIMIZATION_TRIALS --name NAME_OF_THE_SAVED_MODEL`
 
 ## The problem from physical perspective
 
