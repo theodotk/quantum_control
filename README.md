@@ -17,7 +17,7 @@ We describe a quantum system that has two energy eigenstates:
 
 A quantum system can be in any combination of the eigenstates, for example:
 
-$`|p\rangle = \sqrt{1-P_e}\, |g\rangle + \alpha \sqrt{P_e}\, |e\rangle`$.
+$|p\rangle = \sqrt{1-P_e}\, |g\rangle + \alpha \sqrt{P_e}\, |e\rangle$.
 
 Here $\alpha$ is a complex number satisfying $|\alpha| = 1$, and $P_e$ is a real number between 0 and 1: the probability to find the system in $|e\rangle$. It is also called the excited state population.
 
